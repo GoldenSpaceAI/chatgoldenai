@@ -15,7 +15,7 @@
       height: 100vh; text-align: center;
     }
     h1 { color: gold; }
-    .buttons { margin-top: 20px; display: flex; gap: 15px; }
+    .buttons { margin-top: 20px; display: flex; gap: 15px; flex-wrap: wrap; }
     button {
       padding: 10px 20px;
       border: none; border-radius: 12px;
@@ -23,15 +23,27 @@
       cursor: pointer; transition: 0.3s;
     }
     button:hover { background: #f6c64a; }
-    .lang-toggle {
+    .lang-select {
       position: absolute; top: 20px; right: 20px;
-      background: transparent; color: gold;
-      border: 2px solid gold; border-radius: 8px;
+      padding: 8px;
+      border-radius: 6px;
+      border: 2px solid gold;
+      background: #111;
+      color: gold;
+      font-weight: bold;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <button class="lang-toggle" onclick="toggleLang()">AR / EN</button>
+  <!-- Language selector -->
+  <select class="lang-select" onchange="switchLang(this.value)">
+    <option value="en">English</option>
+    <option value="ar">العربية</option>
+    <option value="fr">Français</option>
+  </select>
+
+  <!-- Content -->
   <h1 id="title">Welcome to ChatGoldenAI</h1>
   <p id="desc">Choose an AI to begin:</p>
   <div class="buttons">
@@ -41,7 +53,7 @@
   </div>
 
   <script>
-    let currentLang = "en";
+    // translations
     const translations = {
       en: {
         title: "Welcome to ChatGoldenAI",
@@ -56,18 +68,26 @@
         chat: "شات الذكاء الاصطناعي",
         adv: "الذكاء الاصطناعي المتقدم",
         search: "البحث بالذكاء الاصطناعي"
+      },
+      fr: {
+        title: "Bienvenue sur ChatGoldenAI",
+        desc: "Choisissez une IA pour commencer :",
+        chat: "IA de Chat",
+        adv: "IA Avancée",
+        search: "IA de Recherche"
       }
     };
 
-    function toggleLang() {
-      currentLang = currentLang === "en" ? "ar" : "en";
-      const t = translations[currentLang];
+    function switchLang(lang) {
+      const t = translations[lang];
       document.getElementById("title").innerText = t.title;
       document.getElementById("desc").innerText = t.desc;
       document.getElementById("chatBtn").innerText = t.chat;
       document.getElementById("advBtn").innerText = t.adv;
       document.getElementById("searchBtn").innerText = t.search;
-      document.body.dir = currentLang === "ar" ? "rtl" : "ltr";
+
+      // RTL layout for Arabic, normal for others
+      document.body.dir = lang === "ar" ? "rtl" : "ltr";
     }
   </script>
 </body>
