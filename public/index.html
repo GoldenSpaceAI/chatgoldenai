@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ChatGoldenAI</title>
+  <style>
+    body {
+      margin: 0; padding: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #05060a, #0d1117);
+      color: #fff;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      height: 100vh; text-align: center;
+    }
+    h1 { color: gold; }
+    .buttons { margin-top: 20px; display: flex; gap: 15px; }
+    button {
+      padding: 10px 20px;
+      border: none; border-radius: 12px;
+      background: gold; color: #000; font-weight: bold;
+      cursor: pointer; transition: 0.3s;
+    }
+    button:hover { background: #f6c64a; }
+    .lang-toggle {
+      position: absolute; top: 20px; right: 20px;
+      background: transparent; color: gold;
+      border: 2px solid gold; border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <button class="lang-toggle" onclick="toggleLang()">AR / EN</button>
+  <h1 id="title">Welcome to ChatGoldenAI</h1>
+  <p id="desc">Choose an AI to begin:</p>
+  <div class="buttons">
+    <a href="/chat"><button id="chatBtn">Chat AI</button></a>
+    <a href="/advanced"><button id="advBtn">Advanced AI</button></a>
+    <a href="/search"><button id="searchBtn">Search AI</button></a>
+  </div>
+
+  <script>
+    let currentLang = "en";
+    const translations = {
+      en: {
+        title: "Welcome to ChatGoldenAI",
+        desc: "Choose an AI to begin:",
+        chat: "Chat AI",
+        adv: "Advanced AI",
+        search: "Search AI"
+      },
+      ar: {
+        title: "مرحبًا بك في شات غولدن أي",
+        desc: "اختر الذكاء الاصطناعي للبدء:",
+        chat: "شات الذكاء الاصطناعي",
+        adv: "الذكاء الاصطناعي المتقدم",
+        search: "البحث بالذكاء الاصطناعي"
+      }
+    };
+
+    function toggleLang() {
+      currentLang = currentLang === "en" ? "ar" : "en";
+      const t = translations[currentLang];
+      document.getElementById("title").innerText = t.title;
+      document.getElementById("desc").innerText = t.desc;
+      document.getElementById("chatBtn").innerText = t.chat;
+      document.getElementById("advBtn").innerText = t.adv;
+      document.getElementById("searchBtn").innerText = t.search;
+      document.body.dir = currentLang === "ar" ? "rtl" : "ltr";
+    }
+  </script>
+</body>
+</html>
